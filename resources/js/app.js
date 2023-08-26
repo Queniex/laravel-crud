@@ -8,3 +8,8 @@ Vue.component('dashboard', require('./components/Dashboard.vue').default);
 const app = new Vue({
     el: '#app',
 });
+
+const router = new VueRouter({
+    mode: 'history',
+    routes
+});
