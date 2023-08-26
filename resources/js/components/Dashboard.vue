@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="bg-white py-1 px-1">
+            <div class="bg-black py-1 px-1">
                 <div>
                     Hello, I'm Quenie!
                     <div>
@@ -21,7 +21,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* * {
     border: 1px solid red;
 } */
