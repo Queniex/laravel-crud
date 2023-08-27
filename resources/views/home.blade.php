@@ -7,7 +7,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" id="app">
 
         {{-- navbar --}}
         @include('Template.navbar')
@@ -35,12 +35,12 @@
             </div>
 
 
-            <div class="content" id="app">
+            <div class="content">
                 <div class="container-fluid">
                     <div class="row">
 
                         <div class="col">
-                            <dashboard></dashboard>
+                            <router-view></router-view>
                         </div>
 
                     </div>
