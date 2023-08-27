@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model
 {
-    use HasFactory;
+    // use HasFactory;
+    protected $table = "level";
+    protected $primaryKey = "id";
+    protected $fillable = ['id', 'level_name'];
 }
