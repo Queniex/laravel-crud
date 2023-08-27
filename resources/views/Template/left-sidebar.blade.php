@@ -35,33 +35,40 @@
 
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="fas fa-th-list nav-icon"></i>
                         <p>
-                            Starter Pages
+                            List of Pages
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
-                            </a>
+                            <router-link to="/data-user" class="nav-link">
+                                <i class="far fa-user nav-icon text-primary"></i>
+                                <p>Data User</p>
+                            </router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link to="/data-level" class="nav-link">
+                                <i class="fas fa-layer-group nav-icon text-primary"></i>
+                                <p>Data Level</p>
+                            </router-link>
+                        </li>
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inactive Page</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
+                <hr>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="fas fa-sign-out-alt nav-icon text-danger"></i>
                         <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
+                            Logout
+                            {{-- <span class="right badge badge-danger">New</span> --}}
                         </p>
                     </a>
                 </li>
