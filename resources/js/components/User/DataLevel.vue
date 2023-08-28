@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         loadData() {
-            axios.get('api/get_dataLevel').then(({ data }) => { this.levels = data });
+            axios.get('api/getDataLevel').then(({ data }) => { this.levels = data });
         }
     },
     created() {
