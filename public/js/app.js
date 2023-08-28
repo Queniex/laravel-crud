@@ -5297,6 +5297,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -5313,7 +5315,7 @@ if (csrfToken) {
       levels: {},
       users: {},
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
-        // id: "",
+        id: "",
         name: "",
         level_id: "",
         email: "",
@@ -5372,7 +5374,7 @@ if (csrfToken) {
       var _this3 = this;
       this.loading = true;
       this.disabled = true;
-      this.form.put('api/user').then(function (response) {
+      this.form.put('api/user/' + this.form.id).then(function (response) {
         // Refresh Data
         Fire.$emit("refreshData");
 
@@ -5392,13 +5394,34 @@ if (csrfToken) {
         _this3.disabled = false;
         console.error(error);
       });
+    },
+    delData: function delData(id) {
+      var _this4 = this;
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Delete"
+      }).then(function (result) {
+        if (result.value) {
+          _this4.form["delete"]("api/user/" + id).then(function () {
+            Swal.fire("Deleted", "Your file has been deleted", "success");
+            Fire.$emit("refreshData");
+          })["catch"](function () {
+            Swal.fire("failed", "There's an error occurred!", "warning");
+          });
+        }
+      });
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
     this.loadData();
     Fire.$on("refreshData", function () {
-      _this4.loadData();
+      _this5.loadData();
     });
   }
 });
@@ -10048,7 +10071,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* * {\r\n    border: 1px solid red;\r\n} */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* * {\r\n    border: 1px solid red;\r\n} */\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41739,8 +41762,20 @@ var render = function () {
                       },
                       [_vm._v("Update")]
                     ),
-                    _vm._v(" | "),
-                    _c("a", { staticClass: "text-danger" }, [_vm._v("Delete")]),
+                    _vm._v(" |\n                                "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-danger text-decoration-none",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.delData(item.id)
+                          },
+                        },
+                      },
+                      [_vm._v("Delete")]
+                    ),
                   ]),
                 ])
               }),
@@ -41821,7 +41856,7 @@ var render = function () {
                       on: {
                         submit: function ($event) {
                           $event.preventDefault()
-                          _vm.statusModal ? _vm.editDate() : _vm.saveData()
+                          _vm.statusModal ? _vm.editData() : _vm.saveData()
                         },
                       },
                     },

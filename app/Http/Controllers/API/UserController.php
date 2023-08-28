@@ -99,26 +99,21 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'level_id' => 'required|integer',
-            'email' => 'required|string|email',
-            'password' => 'required'
+            'email' => 'required|string|email'
         ]);
-
+        
+        $edit = User::findOrFail($id);
+        
         $data = [
             'name' => $request->name,
             'level_id' => $request->level_id,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ];
-    
-        $edit = User::findOrFail($id);
-        $edit->update($edit);
-    
-        if ($edit) {
-            return response()->json(['Data' => $data]);
-        } else {
-            return response()->json(['Data' => 'Error']);
-        }
-
+        
+        $edit->update($data);
+        
+        return response()->json(['message' => 'Data updated successfully']);
     }
 
     /**
@@ -129,6 +124,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = User::findOrFail($id);
+        $delete->delete();
+
+        return response()->json(['message' => 'Data updated successfully']);
+
     }
 }

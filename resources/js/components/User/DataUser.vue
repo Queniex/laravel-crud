@@ -32,8 +32,10 @@
                                 <td>{{ item.level_id }}</td>
                                 <td>{{ item.email }}</td>
                                 <td> <a href="#" @click="showModalEdit(item)"
-                                        class="text-primary text-decoration-none">Update</a> | <a
-                                        class="text-danger">Delete</a></td>
+                                        class="text-primary text-decoration-none">Update</a> |
+                                    <a href="#" @click="delData(item.id)"
+                                        class="text-danger text-decoration-none">Delete</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,7 +53,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form @submit.prevent=" statusModal ? editDate() : saveData()">
+                                <form @submit.prevent=" statusModal ? editData() : saveData()">
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <input v-model="form.name" class="form-control" id="name" type="text"
@@ -117,7 +119,7 @@ export default {
             levels: {},
             users: {},
             form: new Form({
-                // id: "",
+                id: "",
                 name: "",
                 level_id: "",
                 email: "",
@@ -176,7 +178,7 @@ export default {
             this.loading = true;
             this.disabled = true;
             this.form
-                .put('api/user')
+                .put('api/user/' + this.form.id)
                 .then(response => {
 
                     // Refresh Data
@@ -200,6 +202,37 @@ export default {
                     console.error(error);
                 });
         },
+        delData(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Delete"
+            }).then(result => {
+                if (result.value) {
+                    this.form
+                        .delete("api/user/" + id)
+                        .then(() => {
+                            Swal.fire(
+                                "Deleted",
+                                "Your file has been deleted",
+                                "success"
+                            );
+                            Fire.$emit("refreshData");
+                        })
+                        .catch(() => {
+                            Swal.fire(
+                                "failed",
+                                "There's an error occurred!",
+                                "warning"
+                            );
+                        });
+                }
+            });
+        }
     },
     created() {
         this.loadData();
